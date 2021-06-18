@@ -1,26 +1,43 @@
+//React.Componentをreactから読み込み
 import React from 'react';
+//ListコンポーネントをList.jsから読み込み
 import { List } from './List.js'
+//FormコンポーネントをForm.jsから読み込み
+import { Form } from './Form.js'
 
+//React.Componentを継承したAppクラスコンポーネントを定義
 class App extends React.Component {
   constructor (props) {
+    //コンストラクタでオーバライドしたReact.Componentのプロップスを初期化
     super (props);
-    this.state = { description: 'クリック前の表示' }
-  }
-  changeDescription() {
-    this.setState({
-      description: 'クリック後の表示'
-    })
+    //tabのstateを定義
+    this.state = {
+      tab: 'list'
+    }
   }
   render() {
-    const { description } = this.state;
+    //定数tabにstateを代入
+    const { tab } = this.state;
+    //JSX記述
     return(
       <div>
-        { description }
-        <List title="取扱言語一覧" />
-        <button onClick={() => this.changeDescription()}>ボタン</button>
+        <header>
+          <ul>
+            {/*リストをクリックしたらtabのstateをlistに変更*/}
+            <li onClick = {() => this.setState({ tab: 'list' })}>リスト</li>
+            {/*フォームをクリックしたらtabのstateをformに変更*/}
+            <li onClick = {() => this.setState({ tab: 'form' })}>フォーム</li>
+          </ul>
+        </header>
+        <hr/>
+        {/*tabのstateがlistならListコンポーネントを表示、そうでないならFromコンポーネントを表示*/}
+        {
+          tab === 'list' ? <List /> : <Form/>
+        }
       </div>
     )
   }
 }
 
+//Appコンポーネントを書き出し
 export default App;
