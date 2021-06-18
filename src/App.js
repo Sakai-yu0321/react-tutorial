@@ -4,25 +4,38 @@ import { useState } from 'react';
 import { List } from "./List";
 //FormコンポーネントをForm.jsから読み込み
 import { Form } from "./Form";
+//LANGUAGESコンポーネントをconst/languages.jsから読み込み
+import { LANGUAGES } from "./const/languages";
 
 function App() {
-  // tabのstateを定義
+  //tabのstateを定義
   const [tab, setTab] = useState('list');
+  //langsのstateを定義
+  const [langs, setLangs] = useState(LANGUAGES);
+  //langsのstateに入っているLANGUAGESの配列をスプレッド(展開)して、
+  //配列の最後に引数lang(Formコンポーネントの入力値)を追加して、
+  //langsのstateに保存
+  const addLang = (lang) => {
+    setLangs([...langs, lang]);
+    setTab('list');
+  }
 
   return (
     <div>
       <header>
         <ul>
-          {/*リストがクリックされたら、state2をlistに変更*/}
+          {/*リストがクリックされたら、tabのstateをlistに変更*/}
           <li onClick={() => setTab('list')}>リスト</li>
-          {/*フォームがクリックされたら、state2をformに変更*/}
+          {/*フォームがクリックされたら、tabのstateをformに変更*/}
           <li onClick={() => setTab('form')}>フォーム</li>
         </ul>
       </header>
       <hr/>
-      {/*state2がlistなら、Listコンポーネントを表示。そうでないなら、Formコンポーネントを表示*/}
+      {/*tabのstateがlistなら、Listコンポーネントを表示。そうでないなら、Formコンポーネントを表示*/}
+      {/*Listコンポーネントにlangsのstate(言語情報の配列)を渡す*/}
+      {/*Formコンポーネントに関数addLangを呼び出すプロパティonAddLangを渡す*/}
       {
-        tab === 'list' ? <List /> : <Form />
+        tab === 'list' ? <List langs={langs}/> : <Form onAddLang={addLang}/>
       }
     </div>
   );
