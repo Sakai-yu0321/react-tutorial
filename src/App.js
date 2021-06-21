@@ -6,6 +6,27 @@ import { List } from './List.js'
 import { Form } from './Form.js'
 //言語情報の配列をconst/languages.jsから読み込み
 import { getLanguages } from './const/languages.js'
+//styled-componentsを読み込み
+import styled from 'styled-components';
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 64px 0;
+  border-bottom: 1px solid #E0E0E0;
+`
+
+const HeaderUl = styled.ul`
+  display: flex;
+  margin: 0;
+  padding: 0;
+`
+const HeaderLi = styled.li`
+  list-style: none;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
+`
 
 //React.Componentを継承したAppクラスコンポーネントを定義
 class App extends React.Component {
@@ -46,15 +67,14 @@ class App extends React.Component {
     //JSX記述
     return(
       <div>
-        <header>
-          <ul>
+        <Header>
+          <HeaderUl>
             {/*リストをクリックしたらtabのstateをlistに変更*/}
-            <li onClick = {() => this.setState({ tab: 'list' })}>リスト</li>
+            <HeaderLi focused={tab === 'list'} onClick = {() => this.setState({ tab: 'list' })}>リスト</HeaderLi>
             {/*フォームをクリックしたらtabのstateをformに変更*/}
-            <li onClick = {() => this.setState({ tab: 'form' })}>フォーム</li>
-          </ul>
-        </header>
-        <hr/>
+            <HeaderLi focused={tab === 'form'} onClick = {() => this.setState({ tab: 'form' })}>フォーム</HeaderLi>
+          </HeaderUl>
+        </Header>
         {/*tabのstateがlistならListコンポーネントを表示、そうでないならFromコンポーネントを表示*/}
         {/*Listコンポーネントにlangsのstate（言語情報の配列）を渡す*/}
         {/*Formコンポーネントに関数addLangをプロパティonAddLang*/}

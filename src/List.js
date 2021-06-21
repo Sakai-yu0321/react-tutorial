@@ -1,5 +1,18 @@
 //React.Componentをreactから読み込み
 import React from "react"
+import styled from 'styled-components';
+
+const Component = styled.div`
+  padding: 12px 64px;
+`
+
+const ListItem = styled.div`
+  padding: 8px 16px;
+  
+  &:nth-child(n+2) {
+    border-top: 1px solid #D9DBDE;
+  }
+`
 
 //React.Componentを継承するListクラスコンポーネントを定義
 export class List extends React.Component {
@@ -11,14 +24,14 @@ export class List extends React.Component {
     const { langs } = this.props
     //JSX記述
     return (
-      <div>
+      <Component>
         {/*mapメソッドで言語の文字列を繰り返し表示*/}
         {
           langs.map((lang, index) => {
-            return <div key={index}>{lang}</div>
+            return <ListItem key={index}>{lang}</ListItem>
           })
         }
-      </div>
+      </Component>
     )
   }
 }

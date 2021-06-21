@@ -1,43 +1,62 @@
-//React.Componentをreactから読み込み
-import React from 'react';
+//useStateをreactから読み込み
+import {useState} from 'react';
+import styled from 'styled-components';
+import { Button } from './components/button';
 
-//React.Componentを継承するFormクラスコンポーネントを定義
-export class Form extends React.Component {
-  constructor (props) {
-    super(props);
-    //コンストラクタにtextというstateを定義
-    this.state = { text:'' }
-  }
-  //フォームが送信されたときに呼ばれる関数を定義
-  //引数の(e)にはイベントがはいる(この場合はonSubmitイベント)
-  submitForm(e) {
-    //イベントのデフォルトの動作をキャンセル
-    //（この場合はフォーム送信によるページの再読み込みをキャンセル）
+const Container = styled.div`
+  padding: 12px 64px;
+`
+const Label = styled.label`
+  display: flex;
+  color: #757575;
+  font-size: 14px;
+  font-weight: bold;
+`
+const Input = styled.input`
+  border-radius: 3px;
+  padding: 4px 8px;
+  border: 1px solid black;
+`
+const ButtonContainer = styled.div`
+  margin-top: 24px;
+`
+const FormButton = styled(Button)`
+  width: 120px;
+`
+
+//Formファンクションコンポーネントを定義
+export const Form = ({ onAddLang }) => {
+  //textのstateを定義
+  const [text, setText] = useState('')
+  //関数submitFormを定義
+  const submitForm = (e) => {
+    //フォームの内容が送信された際のデフォルトの動作をキャンセル
     e.preventDefault();
-    //textのstate(フォームの入力値)を引数にして親コンポーネントから送られてきた関数を呼び出し
-    this.props.onAddLang(this.state.text);
+    //App.jsに定義した関数addLangをtextのstate（フォームに入力された値）を引数にして呼び出し
+    onAddLang(text);
   }
-  render() {
-    //textのstateを取り出し定数textに代入
-    const { text } = this.state;
-    return (
-      <div>
-        <h4>新しい言語を追加</h4>
-        <form onSubmit={(e) => this.submitForm(e)}>
-          <div>
-            <input
-              type="text"
-              //初期値にtextのstateを定義
-              value={ text }
-              //フォームの値が変更されたら（初期値が変わったら）その値をtextのstateに保存
-              onChange={(e) => this.setState({text: e.target.value})}
-            />
-          </div>
-          <div>
-            <button>追加</button>
-          </div>
-        </form>
-      </div>
-    )
-  }
+
+  //JSX記述
+  return (
+    <Container>
+      <h4>新しい言語の追加</h4>
+      {/*フォームにsubmit処理を追加し、内容が送信されたときに関数submitFromを呼び出し*/}
+      <form onSubmit={submitForm}>
+        <div>
+          <Label>言語</Label>
+          <Input
+          /*タイプは一行のテキスト入力欄*/
+          type="text"
+          /*初期値はtextのstate*/
+          value={text}
+          /*初期値が変更されたらtextのstateを変更された値に変更*/
+          onChange={(e) => setText(e.target.value)}
+          />
+        </div>
+        <ButtonContainer>
+          <FormButton>追加</FormButton>
+        </ButtonContainer>
+      </form>
+    </Container>
+  )
 }
