@@ -1,5 +1,31 @@
 //useStateをreactから読み込み
 import {useState} from 'react';
+import { Button } from './components/button';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  padding: 12px 64px;
+`
+
+const Label = styled.label`
+  display: flex;
+  color: #757575;
+  font-size: 14px;
+  font-weight: bold;
+`
+
+const Input = styled.input`
+  border-radius: 3px;
+  padding: 4px 8px;
+  border: 1px solid black;
+`
+const ButtonContainer = styled.div`
+  margin-top: 24px;
+`
+//既存のコンポーネントを拡張
+const FormButton = styled(Button)`
+  width: 120px;
+`
 
 //Formファンクションコンポーネントを定義
 export const Form = ({ onAddLang }) => {
@@ -15,12 +41,13 @@ export const Form = ({ onAddLang }) => {
 
   //JSX記述
   return (
-    <div>
+    <Container>
       <h4>新しい言語の追加</h4>
       {/*フォームにsubmit処理を追加し、内容が送信されたときに関数submitFromを呼び出し*/}
       <form onSubmit={submitForm}>
         <div>
-          <input
+          <Label>言語</Label>
+          <Input
           /*タイプは一行のテキスト入力欄*/
           type="text"
           /*初期値はtextのstate*/
@@ -29,10 +56,10 @@ export const Form = ({ onAddLang }) => {
           onChange={(e) => setText(e.target.value)}
           />
         </div>
-        <div>
-          <button>追加</button>
-        </div>
+        <ButtonContainer>
+          <FormButton>追加</FormButton>
+        </ButtonContainer>
       </form>
-    </div>
+    </Container>
   )
 }
