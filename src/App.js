@@ -5,7 +5,7 @@ import { List } from './List.js'
 //FormコンポーネントをForm.jsから読み込み
 import { Form } from './Form.js'
 //言語情報の配列をconst/languages.jsから読み込み
-import { LANGUAGES } from './const/languages.js'
+import { getLanguages } from './const/languages.js'
 
 //React.Componentを継承したAppクラスコンポーネントを定義
 class App extends React.Component {
@@ -16,8 +16,19 @@ class App extends React.Component {
       //tabのstateを定義
       tab: 'list',
       //langsのstateを定義
-      langs:LANGUAGES
+      langs: []
     }
+  }
+  //ライフサイクルのmounting時に呼び出される関数を定義
+  componentDidMount() {
+    console.log('App.js:componentDidMount');
+    //関数呼び出し
+    this.fetchLanguages();
+  }
+  //languages.jsの関数getLanguagesの処理が終了したらその返り値をlangsのstateに定義する
+  async fetchLanguages() {
+    const langs = await getLanguages();
+    this.setState({ langs });
   }
   //lang（フォームの入力値）を引数に関数addLangを定義
   addLang(lang) {
