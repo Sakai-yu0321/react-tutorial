@@ -2,10 +2,7 @@
 import {useState} from 'react';
 import { Button } from './components/button';
 import styled from 'styled-components';
-
-const Container = styled.div`
-  padding: 12px 64px;
-`
+import { TabBodyContainer } from './components/tab-body-container';
 
 const Label = styled.label`
   display: flex;
@@ -41,8 +38,7 @@ export const Form = ({ onAddLang }) => {
 
   //JSX記述
   return (
-    <Container>
-      <h4>新しい言語の追加</h4>
+    <TabBodyContainer title="新しい言語の追加">
       {/*フォームにsubmit処理を追加し、内容が送信されたときに関数submitFromを呼び出し*/}
       <form onSubmit={submitForm}>
         <div>
@@ -60,6 +56,6 @@ export const Form = ({ onAddLang }) => {
           <FormButton>追加</FormButton>
         </ButtonContainer>
       </form>
-    </Container>
+    </TabBodyContainer>
   )
 }
