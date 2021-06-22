@@ -3,6 +3,7 @@ import {useState} from 'react';
 import { Button } from './components/button';
 import styled from 'styled-components';
 import { TabBodyContainer } from './components/tab-body-container';
+import { FormModal } from "./FormModal";
 
 const Label = styled.label`
   display: flex;
@@ -27,13 +28,14 @@ const FormButton = styled(Button)`
 //Formファンクションコンポーネントを定義
 export const Form = ({ onAddLang }) => {
   //textのstateを定義
-  const [text, setText] = useState('')
+  const [text, setText] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  
   //関数submitFormを定義
   const submitForm = (e) => {
     //フォームの内容が送信された際のデフォルトの動作をキャンセル
     e.preventDefault();
-    //App.jsに定義した関数addLangをtextのstate（フォームに入力された値）を引数にして呼び出し
-    onAddLang(text);
+    setShowModal(true);
   }
 
   //JSX記述
@@ -56,6 +58,18 @@ export const Form = ({ onAddLang }) => {
           <FormButton>追加</FormButton>
         </ButtonContainer>
       </form>
+
+      {
+        //trueかつtrueならFormModalを表示
+        showModal &&
+          <FormModal
+            /*confirmプロパティに関数AddLangを指定、
+            引数はtext(フォームの入力値)*/
+            confirm={() => onAddLang(text)}
+            /*cancelプロパティにshowModalのstateをfalseにする関数を指定*/
+            cancel={() => setShowModal(false)}
+          />
+      }
     </TabBodyContainer>
   )
 }

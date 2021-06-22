@@ -10,6 +10,7 @@ import { Form } from "./Form";
 import { getLanguages } from "./const/languages";
 //higher-order-componentを読み込み
 import { withLoading } from './hoc/withLoading';
+import { Modal } from './components/modal';
 
 const Header = styled.header`
   display: flex;
@@ -65,5 +66,5 @@ function App({ data }) {
   );
 }
 
-//Appコンポーネントと関数getLanguagesを引数に渡すhigher-order-component、withLoadingを呼び出し＆書き出し
+//Appコンポーネントと関数getLanguagesを引数に渡してhigher-order-componentを呼び出し&書き出し
 export default withLoading(App, getLanguages);
