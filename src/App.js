@@ -8,6 +8,8 @@ import { Form } from './Form.js'
 import { getLanguages } from './const/languages.js'
 //styled-componentsを読み込み
 import styled from 'styled-components';
+//higher-order-component読み込み
+import { withLoading } from './hoc/withLoading.js';
 
 const Header = styled.header`
   display: flex;
@@ -37,15 +39,10 @@ class App extends React.Component {
       //tabのstateを定義
       tab: 'list',
       //langsのstateを定義
-      langs: []
+      langs: props.data,
     }
   }
-  //ライフサイクルのmounting時に呼び出される関数を定義
-  componentDidMount() {
-    console.log('App.js:componentDidMount');
-    //関数呼び出し
-    this.fetchLanguages();
-  }
+
   //languages.jsの関数getLanguagesの処理が終了したらその返り値をlangsのstateに定義する
   async fetchLanguages() {
     const langs = await getLanguages();
@@ -86,5 +83,5 @@ class App extends React.Component {
   }
 }
 
-//Appコンポーネントを書き出し
-export default App;
+//Appコンポーネントと関数getLanguagesを引数に渡してhigher-order-componentを呼び出し&書き出し
+export default withLoading(App, getLanguages);

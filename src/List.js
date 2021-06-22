@@ -1,10 +1,7 @@
 //React.Componentをreactから読み込み
 import React from "react"
 import styled from 'styled-components';
-
-const Component = styled.div`
-  padding: 12px 64px;
-`
+import { TabBodyContainer } from "./tab-body-container";
 
 const ListItem = styled.div`
   padding: 8px 16px;
@@ -24,14 +21,17 @@ export class List extends React.Component {
     const { langs } = this.props
     //JSX記述
     return (
-      <Component>
+      /*formと共通のcssを適用するため、
+        子を受け取るコンポーネント（TabBodyContainer）に、
+        titleとchildren（子要素）を渡して表示*/
+      <TabBodyContainer title="取扱言語リスト">
         {/*mapメソッドで言語の文字列を繰り返し表示*/}
         {
           langs.map((lang, index) => {
             return <ListItem key={index}>{lang}</ListItem>
           })
         }
-      </Component>
+      </TabBodyContainer>
     )
   }
 }
