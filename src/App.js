@@ -10,7 +10,6 @@ import { Form } from "./Form";
 import { getLanguages } from "./const/languages";
 //higher-order-componentを読み込み
 import { withLoading } from './hoc/withLoading';
-import { Modal } from './components/modal';
 
 const Header = styled.header`
   display: flex;
