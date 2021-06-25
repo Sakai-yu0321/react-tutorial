@@ -37,9 +37,9 @@ function App({ data }) {
   //langsのstateを定義
   const [langs, setLangs] = useState(data);
 
-  //langsのstateに入っているLANGUAGESの配列をスプレッド(展開)して、
-  //配列の最後に引数lang(Formコンポーネントの入力値)を追加して、
-  //langsのstateに保存
+  /*langsのstateに入っているLANGUAGESの配列をスプレッド(展開)して、
+    配列の最後に引数lang(Formコンポーネントの入力値)を追加して、
+    langsのstateに保存*/
   const addLang = (lang) => {
     setLangs([...langs, lang]);
     setTab('list');
@@ -55,9 +55,9 @@ function App({ data }) {
           <HeaderLi focused={tab === 'form'} onClick={() => setTab('form')}>フォーム</HeaderLi>
         </HeaderUl>
       </Header>
-      {/*tabのstateがlistなら、Listコンポーネントを表示。そうでないなら、Formコンポーネントを表示*/}
-      {/*Listコンポーネントにlangsのstate(言語情報の配列)を渡す*/}
-      {/*Formコンポーネントに関数addLangを呼び出すプロパティonAddLangを渡す*/}
+      {/*tabのstateがlistなら、Listコンポーネントを表示。そうでないなら、Formコンポーネントを表示
+         Listコンポーネントにlangsのstate(言語情報の配列)を渡す
+         Formコンポーネントに関数addLangを呼び出すプロパティonAddLangを渡す*/}
       {
         tab === 'list' ? <List langs={langs}/> : <Form onAddLang={addLang}/>
       }
